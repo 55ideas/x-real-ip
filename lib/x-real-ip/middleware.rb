@@ -16,6 +16,9 @@ module XRealIp
     def call(env)
       real_ips  = env["HTTP_X_REAL_IP"]
       if real_ips
+        # for Rails logger
+        env["HTTP_X_FORWARDED_FOR"] = real_ips
+        
         proxies = []
         list = real_ips.split(',')
         return @app.call(env) if list.empty?
