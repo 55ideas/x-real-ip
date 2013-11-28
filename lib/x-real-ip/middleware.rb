@@ -16,10 +16,10 @@ module XRealIp
     def call(env)
       real_ips  = env["HTTP_X_REAL_IP"]
       if real_ips
+        proxies = []
+        list = real_ips.split(',')
+        return @app.call(env) if list.empty?
         begin
-          proxies = []
-          list = real_ips.split(',')
-          return @app.call(env) if list.empty?
           list.push env["REMOTE_ADDR"]
           while tmp = list.pop
             addr = tmp
@@ -38,16 +38,12 @@ module XRealIp
               env["rack.url_scheme"] = 'https'
             end
           end
-
-          @app.call(env)
         rescue => e
           $stderr.puts "Error in x-real-ip: #{$!}"
           $stderr.puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
-          @app.call(env)
         end
-      else
-        @app.call(env)
       end
+      @app.call(env)
     end
   end
 end
