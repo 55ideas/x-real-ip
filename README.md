@@ -20,6 +20,26 @@ Or install it yourself as:
 
 For rails just add it to Gemfile
 
+For rack/sinatra
+
+    use XRealIp::Middleware
+
+Or in Rack::Builder like this:
+
+    app = Rack::Builder.new do
+      use XRealIp::Middleware
+      use Raven::Rack
+      map '/serve' do
+        run Serve.new
+      end
+      map '/' do
+        run App.new
+      end
+    end
+
+    run app
+
+
 ## Contributing
 
 1. Fork it
