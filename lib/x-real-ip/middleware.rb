@@ -18,7 +18,10 @@ module XRealIp
       if real_ips
         # for Rails logger
         env["HTTP_X_FORWARDED_FOR"] = real_ips
-        
+      else
+        real_ips  = env["HTTP_X_FORWARDED_FOR"]
+      end
+      if real_ips
         proxies = []
         list = real_ips.split(',')
         return @app.call(env) if list.empty?
