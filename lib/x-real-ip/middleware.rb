@@ -6,13 +6,9 @@ module XRealIp
 
     def is_trusted?(str)
       ip = IPAddr.new(str)
-      if ip.ipv4?
-        XRealIp.trusted4.include?(ip.to_s)
-      else
-        XRealIp.trusted6.include?(ip.to_s)
-      end
+      XRealIp.trusted.any? { |proxy| proxy === ip }
     end
-    
+
     def call(env)
       real_ips  = env["HTTP_X_REAL_IP"]
       if real_ips

@@ -39,6 +39,9 @@ Or in Rack::Builder like this:
 
     run app
 
+## Credits
+
+Some ideas from https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/remote_ip.rb
 
 ## Contributing
 
