@@ -7,8 +7,10 @@ module XRealIp
     def is_trusted?(str)
       begin
         ip = IPAddr.new(str)
-      rescue
-        raise "Invalid address: #{str}"
+      rescue Exception => e
+        $stderr.puts "Error in x-real-ip parsing address '#{str}': #{e.message}"
+        $stderr.puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
+        raise e
       end
       XRealIp.trusted.any? { |proxy| proxy === ip }
     end
