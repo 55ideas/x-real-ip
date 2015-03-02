@@ -5,7 +5,11 @@ module XRealIp
     end
 
     def is_trusted?(str)
-      ip = IPAddr.new(str)
+      begin
+        ip = IPAddr.new(str)
+      rescue
+        raise "Invalid address: #{str}"
+      end
       XRealIp.trusted.any? { |proxy| proxy === ip }
     end
 
