@@ -6,9 +6,9 @@ module XRealIp
 
     def is_trusted?(str)
       begin
-        ip = IPAddr.new(str)
+        ip = IPAddr.new(str.strip)
       rescue Exception => e
-        $stderr.puts "Error in x-real-ip parsing address '#{str}': #{e.message}"
+        $stderr.puts "Error in x-real-ip parsing address '#{str.strip}': #{e.message}"
         $stderr.puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
         raise e
       end
@@ -47,7 +47,7 @@ module XRealIp
             end
           end
         rescue => e
-          $stderr.puts "Error in x-real-ip: #{$!}"
+          $stderr.puts "Error in x-real-ip: #{e.message}"
           $stderr.puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
         end
       end
