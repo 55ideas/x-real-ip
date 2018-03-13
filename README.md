@@ -1,3 +1,7 @@
+# DEPRECATED
+
+consider using X-Forwarded-For which is natively supported instead
+
 # X-Real-IP
 
 Replace REMOTE_IP with X-Real-Ip if it's trusted (useful for Nginx)
